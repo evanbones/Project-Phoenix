@@ -8,4 +8,3 @@ position = Vector2( -0.557388, 0 )
 [node name="icon" type="Sprite" parent="."]
 position = Vector2( 176.094, 108.793 )
 texture = ExtResource( 1 )
-

@@ -5,7 +5,7 @@
 [ext_resource path="res://Materials/triplaner/evencare/0tile_1.tres" type="Material" id=3]
 [ext_resource path="res://Materials/triplaner/newmaker/grass.tres" type="Material" id=4]
 [ext_resource path="res://Materials/triplaner/newmaker/stonebrick.tres" type="Material" id=5]
-[ext_resource path="res://Enviorments/GiftPlane.tres" type="Environment" id=6]
+[ext_resource path="res://Environments/GiftPlane.tres" type="Environment" id=6]
 [ext_resource path="res://Scripts/Camera/camera_follow_basic.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/camera_follower.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/Prefabs/Player.tscn" type="PackedScene" id=9]
@@ -104,7 +104,6 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="road/floor3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 11 )
 
@@ -118,7 +117,6 @@ script = ExtResource( 1 )
 mat_id = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Boundary3" type="StaticBody" parent="Boundaries" groups=[
