@@ -1,9 +1,10 @@
 extends KinematicBody
-#movement
+
+#Movement Calculations
 export var gravity = -20
 export var acceleration = 30
 export var deceleration = 35
-export var maxspeed = 400
+export var speed = 300
 var direction = Vector3()
 var velocity = Vector3()
 var movVelocity = Vector3()
@@ -11,8 +12,8 @@ var velX = 0.0
 var velZ = 0.0
 var absvelocity = 0.0
 var velscale = 0.0
-#animation
 export var facingdir = 0
+
 #Sound
 var iswalking = false
 var walkSndTimer = 0
@@ -20,6 +21,7 @@ var leftstep = false
 var step = false
 export var timePerStepSound = 0.28
 export var surface = 0
+
 #GetComponenets
 onready var sprite = get_node("sprite")
 onready var grassL = get_node("grassL")
@@ -48,10 +50,10 @@ func _physics_process(delta):
 	
 	#acceleration X
 	if direction.x > 0:
-		if velX < maxspeed:
+		if velX < speed:
 			velX += acceleration
 	elif direction.x < 0:
-		if velX > -maxspeed:
+		if velX > -speed:
 			velX -= acceleration
 	else:
 		if velX > deceleration:
@@ -62,10 +64,10 @@ func _physics_process(delta):
 			velX = 0
 	#acceleration Z
 	if direction.z > 0:
-		if velZ < maxspeed:
+		if velZ < speed:
 			velZ += acceleration
 	elif direction.z < 0:
-		if velZ > -maxspeed:
+		if velZ > -speed:
 			velZ -= acceleration
 	else:
 		if velZ > deceleration:
@@ -75,8 +77,7 @@ func _physics_process(delta):
 		else:
 			velZ = 0
 	absvelocity = abs(velX) + abs(velZ)
-	absvelocity = clamp(absvelocity, 0, maxspeed)
-	
+	absvelocity = clamp(absvelocity, 0, speed)
 	movVelocity = Vector3(velX, 0, velZ).normalized()
 	
 	if is_on_floor():
@@ -86,7 +87,7 @@ func _physics_process(delta):
 	velocity.x = movVelocity.x * delta * absvelocity
 	velocity.z = movVelocity.z * delta * absvelocity
 	
-	#dir calc
+	#Direction Calculations
 	if direction.x > 0: # right
 		facingdir = 1
 	elif direction.x < 0: # left
@@ -95,7 +96,8 @@ func _physics_process(delta):
 		facingdir = 0
 	elif direction.z < 0: # back
 		facingdir = 2
-	#animate
+
+	#Animate
 	if direction != Vector3.ZERO:
 		iswalking = true
 		if facingdir == 0:
@@ -116,9 +118,11 @@ func _physics_process(delta):
 			sprite.play("b_idle")
 		if facingdir == 3:
 			sprite.play("l_idle")
-	#move
+
+	#Move
 	velocity = move_and_slide(velocity, Vector3.UP)
-	#Ground ray
+
+	#Ground Collisions
 	if groundray.is_colliding():
 		var other = groundray.get_collider()
 		if other.is_in_group("grass"):
@@ -129,7 +133,7 @@ func _physics_process(delta):
 			surface = 2
 
 func _process(delta):
-	#step sound timer
+	#Step Sound Timer
 	if iswalking:
 		walkSndTimer -= delta
 		if walkSndTimer <= 0:
@@ -139,7 +143,8 @@ func _process(delta):
 	else:
 		walkSndTimer = timePerStepSound
 		leftstep = true
-	#play sounds
+
+	#Play Step Sounds
 	if step == true:
 		#grass
 		if surface == 0:

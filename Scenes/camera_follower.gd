@@ -11,7 +11,8 @@ func _physics_process(delta):
 	var targetpos = get_node(targetPath).get_translation()
 	currentpos = self.get_translation()
 	var xdistance = targetpos.x - currentpos.x
-	#xFollow
+	
+	#X Follow
 	xdistance = abs(xdistance)
 	if xdistance >= followDistance:
 		if currentpos.x > targetpos.x:
@@ -22,7 +23,8 @@ func _physics_process(delta):
 			dir.x = 0
 	else:
 		dir.x = 0
-	#Z follow
+		
+	#Z Follow
 	var zdistance = targetpos.z - currentpos.z
 	zdistance = abs(zdistance)
 	if zdistance >= followDistance:
@@ -35,4 +37,3 @@ func _physics_process(delta):
 	else:
 		dir.z = 0
 	set_translation(currentpos + dir)
-	#move_and_slide(dir * speed, Vector3(0, 1, 0))

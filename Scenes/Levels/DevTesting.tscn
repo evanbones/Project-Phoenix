@@ -25,7 +25,7 @@ shader_param/VectorUniform = Vector3( 0.5, 0, 0 )
 shader_param/VectorUniform2 = Vector3( 3.5, -2.5, 0 )
 shader_param/tex_frg_13 = ExtResource( 14 )
 
-[node name="DevTesting" type="Spatial"]
+[node name="Classroom" type="Spatial"]
 
 [node name="floor" type="StaticBody" parent="." groups=[
 "floor",
@@ -75,13 +75,11 @@ current = true
 fov = 60.0
 script = ExtResource( 7 )
 xrange = Vector2( -1, 20 )
-zclamped = true
 zrange = Vector2( 3, 15 )
 targetPath = NodePath("../camera_follower")
 
 [node name="camera_follower" parent="." instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.656795, 2.35625, -2.25675 )
-visible = false
 followDistance = 2
 targetPath = NodePath("../Player")
 
@@ -117,6 +115,7 @@ script = ExtResource( 1 )
 mat_id = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Boundary3" type="StaticBody" parent="Boundaries" groups=[

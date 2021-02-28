@@ -1,5 +1,5 @@
 extends Camera
-export var offset = Vector3(0, 2, 10)
+export var offset = Vector3(0, 3, 10)
 export var xclamped = true
 export var xrange = Vector2(10, 10)
 export var zclamped = false
