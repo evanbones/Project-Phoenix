@@ -21,7 +21,6 @@
 [ext_resource path="res://Sprites/Guardian/Back_walk/Gaurdian_bwalk2.png" type="Texture" id=19]
 [ext_resource path="res://Sprites/Guardian/Back_walk/Gaurdian_bwalk3.png" type="Texture" id=20]
 [ext_resource path="res://Sprites/Guardian/Back_walk/Gaurdian_bwalk4.png" type="Texture" id=21]
-[ext_resource path="res://Scripts/Camera/look_at_camera.gd" type="Script" id=22]
 [ext_resource path="res://SFX/Steps/Grass_L.wav" type="AudioStream" id=23]
 [ext_resource path="res://SFX/Steps/Grass_R.wav" type="AudioStream" id=24]
 [ext_resource path="res://SFX/Steps/snd_step_stone1.wav" type="AudioStream" id=25]
@@ -37,6 +36,21 @@ animations = [ {
 "loop": true,
 "name": "f_idle",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "f_walk",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "b_idle",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "r_walk",
+"speed": 7.0
 }, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
@@ -57,22 +71,18 @@ animations = [ {
 "loop": true,
 "name": "r_idle",
 "speed": 0.0
-}, {
-"frames": [ ExtResource( 2 ) ],
-"loop": true,
-"name": "b_idle",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
-"loop": true,
-"name": "r_walk",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
-"name": "f_walk",
-"speed": 7.0
 } ]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends AnimatedSprite3D
+export var lockZ = true
+var camera_pos = Vector3()
+func _process(delta):
+	camera_pos = get_viewport().get_camera().global_transform.origin
+	if lockZ:
+		camera_pos.z = camera_pos.z + 1000
+	look_at(camera_pos, Vector3.UP)
+"
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
@@ -95,9 +105,9 @@ pixel_size = 0.04
 shaded = true
 frames = SubResource( 2 )
 animation = "f_walk"
-frame = 2
+frame = 1
 playing = true
-script = ExtResource( 22 )
+script = SubResource( 3 )
 
 [node name="groundray" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.005, 0.592 )
