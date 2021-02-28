@@ -23,6 +23,7 @@ mat_id = 2
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="floor"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 11 )
 
@@ -36,6 +37,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="grass"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 4 )
 
@@ -60,20 +62,6 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.68935
 
 [node name="road" type="Node" parent="."]
 
-[node name="floor3" type="StaticBody" parent="road" groups=[
-"floor",
-]]
-transform = Transform( 25, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, -10 )
-script = ExtResource( 1 )
-mat_id = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="road/floor3"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="road/floor3"]
-mesh = ExtResource( 2 )
-material/0 = ExtResource( 11 )
-
 [node name="Boundaries" type="Node" parent="."]
 
 [node name="Boundary" type="StaticBody" parent="Boundaries" groups=[
@@ -84,6 +72,7 @@ script = ExtResource( 1 )
 mat_id = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="Boundary3" type="StaticBody" parent="Boundaries" groups=[
@@ -96,10 +85,6 @@ mat_id = 2
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary3"]
 shape = SubResource( 1 )
 
-[node name="CollisionShape2" type="CollisionShape" parent="Boundaries/Boundary3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 2.70805, -3.93189, 0, -2.49387 )
-shape = SubResource( 1 )
-
 [node name="Boundary4" type="StaticBody" parent="Boundaries" groups=[
 "floor",
 ]]
@@ -108,15 +93,4 @@ script = ExtResource( 1 )
 mat_id = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary4"]
-shape = SubResource( 1 )
-
-[node name="Boundary2" type="StaticBody" parent="Boundaries" groups=[
-"floor",
-]]
-transform = Transform( 30, 0, 0, 0, 3, 0, 0, 0, 1, 10, 1, -16 )
-script = ExtResource( 1 )
-mat_id = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.176696 )
 shape = SubResource( 1 )
