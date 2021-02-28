@@ -2,7 +2,7 @@ extends KinematicBody
 
 #Movement Calculations
 export var gravity = Vector3.DOWN * 10
-export var speed = 6
+export var speed = 4
 
 var direction = Vector3()
 var velocity = Vector3()
@@ -51,9 +51,7 @@ func _physics_process(delta):
 		direction.z -= 1
 	if Input.is_action_pressed("ui_down"):
 		direction.z += 1
-	
-	direction = direction.normalized()
-	
+
 	#Direction Calculations
 	if direction.x > 0: # right
 		facingdir = 1

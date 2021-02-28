@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=2]
-
-[ext_resource path="res://Scenes/camera_follower.gd" type="Script" id=1]
-
-[node name="camera_follower" type="KinematicBody"]
-visible = false
-script = ExtResource( 1 )

@@ -1,25 +1,14 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/snd_material.gd" type="Script" id=1]
 [ext_resource path="res://Models/UVcube.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://Materials/triplaner/evencare/0tile_1.tres" type="Material" id=3]
 [ext_resource path="res://Materials/triplaner/newmaker/grass.tres" type="Material" id=4]
 [ext_resource path="res://Materials/triplaner/newmaker/stonebrick.tres" type="Material" id=5]
 [ext_resource path="res://Scenes/Prefabs/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scenes/Prefabs/SettingsHandler.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Materials/Even_care/even_tile.tres" type="Material" id=11]
-[ext_resource path="res://shaders/backdrop_scroll.tres" type="Shader" id=13]
-[ext_resource path="res://Textures/GiftPlane/backgrounds/background_tile1.png" type="Texture" id=14]
 
 [sub_resource type="BoxShape" id=1]
-
-[sub_resource type="PlaneMesh" id=2]
-
-[sub_resource type="ShaderMaterial" id=3]
-shader = ExtResource( 13 )
-shader_param/VectorUniform = Vector3( 0.5, 0, 0 )
-shader_param/VectorUniform2 = Vector3( 3.5, -2.5, 0 )
-shader_param/tex_frg_13 = ExtResource( 14 )
 
 [node name="Classroom" type="Spatial"]
 
@@ -35,13 +24,12 @@ shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="floor"]
 mesh = ExtResource( 2 )
-material/0 = ExtResource( 3 )
+material/0 = ExtResource( 11 )
 
 [node name="grass" type="StaticBody" parent="." groups=[
 "grass",
 ]]
 transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, 10, 0, 0 )
-visible = false
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="grass"]
@@ -55,7 +43,6 @@ material/0 = ExtResource( 4 )
 "stone",
 ]]
 transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, 20, 0, 0 )
-visible = false
 script = ExtResource( 1 )
 mat_id = 1
 
@@ -77,12 +64,10 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.68935
 "floor",
 ]]
 transform = Transform( 25, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0, -10 )
-visible = false
 script = ExtResource( 1 )
 mat_id = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="road/floor3"]
-visible = false
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="road/floor3"]
@@ -135,9 +120,3 @@ mat_id = 2
 [node name="CollisionShape" type="CollisionShape" parent="Boundaries/Boundary2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.176696 )
 shape = SubResource( 1 )
-
-[node name="BackDrop" type="MeshInstance" parent="."]
-transform = Transform( 172.294, 0, 0, 0, -5.75329e-07, -101.952, 0, 13.162, -4.45649e-06, -0.0437069, -0.547698, -19.6025 )
-visible = false
-mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
