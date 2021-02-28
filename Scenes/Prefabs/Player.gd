@@ -1,20 +1,14 @@
 extends KinematicBody
 
 #Movement Calculations
-export var gravity = -20
-export var acceleration = 30
-export var deceleration = 35
-export var speed = 300
+export var gravity = Vector3.DOWN * 10
+export var speed = 6
+
 var direction = Vector3()
 var velocity = Vector3()
-var movVelocity = Vector3()
-var velX = 0.0
-var velZ = 0.0
-var absvelocity = 0.0
-var velscale = 0.0
-export var facingdir = 0
+var facingdir = 0
 
-#Sound
+#Sound Variables
 var iswalking = false
 var walkSndTimer = 0
 var leftstep = false
@@ -35,6 +29,18 @@ onready var groundray = get_node("groundray")
 func _ready():
 	walkSndTimer = timePerStepSound
 
+func get_input():
+	velocity.x = 0
+	velocity.z = 0
+	if Input.is_action_pressed("ui_up"):
+		velocity.z -= speed
+	if Input.is_action_pressed("ui_down"):
+		velocity.z += speed
+	if Input.is_action_pressed("ui_right"):
+		velocity.x += speed
+	if Input.is_action_pressed("ui_left"):
+		velocity.x -= speed
+
 func _physics_process(delta):
 	direction = Vector3(0, 0, 0)
 	if Input.is_action_pressed("ui_left"):
@@ -47,45 +53,6 @@ func _physics_process(delta):
 		direction.z += 1
 	
 	direction = direction.normalized()
-	
-	#acceleration X
-	if direction.x > 0:
-		if velX < speed:
-			velX += acceleration
-	elif direction.x < 0:
-		if velX > -speed:
-			velX -= acceleration
-	else:
-		if velX > deceleration:
-			velX -= deceleration
-		elif velX < -deceleration:
-			velX += deceleration
-		else:
-			velX = 0
-	#acceleration Z
-	if direction.z > 0:
-		if velZ < speed:
-			velZ += acceleration
-	elif direction.z < 0:
-		if velZ > -speed:
-			velZ -= acceleration
-	else:
-		if velZ > deceleration:
-			velZ -= deceleration
-		elif velZ < -deceleration:
-			velZ += deceleration
-		else:
-			velZ = 0
-	absvelocity = abs(velX) + abs(velZ)
-	absvelocity = clamp(absvelocity, 0, speed)
-	movVelocity = Vector3(velX, 0, velZ).normalized()
-	
-	if is_on_floor():
-		velocity.y = 0
-	else:
-		velocity.y += gravity * delta
-	velocity.x = movVelocity.x * delta * absvelocity
-	velocity.z = movVelocity.z * delta * absvelocity
 	
 	#Direction Calculations
 	if direction.x > 0: # right
@@ -120,6 +87,8 @@ func _physics_process(delta):
 			sprite.play("l_idle")
 
 	#Move
+	velocity += gravity * delta
+	get_input()
 	velocity = move_and_slide(velocity, Vector3.UP)
 
 	#Ground Collisions
