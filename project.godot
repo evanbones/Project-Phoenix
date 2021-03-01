@@ -24,6 +24,7 @@ config/icon="res://icon.png"
 window/size/width=320
 window/size/height=240
 window/size/resizable=false
+window/size/fullscreen=true
 window/size/test_width=1000
 window/size/test_height=750
 window/vsync/use_vsync=false
@@ -119,4 +120,5 @@ ui_jump={
 
 [rendering]
 
+quality/2d/use_pixel_snap=true
 quality/dynamic_fonts/use_oversampling=false
