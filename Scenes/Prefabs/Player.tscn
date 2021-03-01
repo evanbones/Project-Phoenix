@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Scenes/Prefabs/Player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/Guardian/Idle/Gaurdian_idle_back.png" type="Texture" id=2]
@@ -37,10 +37,25 @@ animations = [ {
 "name": "f_idle",
 "speed": 0.0
 }, {
+"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
+"loop": true,
+"name": "l_walk",
+"speed": 7.0
+}, {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": true,
 "name": "f_walk",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "b_walk",
+"speed": 7.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "r_idle",
+"speed": 0.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
@@ -56,43 +71,11 @@ animations = [ {
 "loop": true,
 "name": "l_idle",
 "speed": 0.0
-}, {
-"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
-"loop": true,
-"name": "b_walk",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ) ],
-"loop": true,
-"name": "l_walk",
-"speed": 7.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "r_idle",
-"speed": 0.0
 } ]
-
-[sub_resource type="GDScript" id=3]
-script/source = "extends AnimatedSprite3D
-export var lockZ = true
-var camera_pos = Vector3()
-func _process(delta):
-	camera_pos = get_viewport().get_camera().global_transform.origin
-	if lockZ:
-		camera_pos.z = camera_pos.z + 1000
-	look_at(camera_pos, Vector3.UP)
-"
 
 [node name="Player" type="KinematicBody"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
 script = ExtResource( 1 )
-
-[node name="target" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.25225e-08, -0.744029 )
-
-[node name="Camera" type="Camera" parent="target"]
-transform = Transform( 1, 0, 0, 0, -0.324891, 0.945751, 0, -0.945751, -0.324891, 0, 7.16781, -2.06221 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.75, 0, 0, 0 )
@@ -100,14 +83,10 @@ shape = SubResource( 1 )
 
 [node name="sprite" type="AnimatedSprite3D" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-flip_h = true
 pixel_size = 0.04
-shaded = true
 frames = SubResource( 2 )
 animation = "f_walk"
-frame = 1
 playing = true
-script = SubResource( 3 )
 
 [node name="groundray" type="RayCast" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.005, 0.592 )
@@ -130,3 +109,8 @@ stream = ExtResource( 27 )
 
 [node name="floorR" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource( 28 )
+
+[node name="Target" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -0.550481, 0.834848, 0, -0.834848, -0.550481, 0, 6.37298, -3.07281 )
+
+[node name="Camera" type="Camera" parent="Target"]
