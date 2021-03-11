@@ -91,14 +91,14 @@ func _physics_process(delta):
 
 	#Ground Collisions
 	if groundray.is_colliding():
-		var other = groundray.get_collider()
-		if other.is_in_group("grass"):
+		var groundtype = groundray.get_collider()
+		if groundtype.is_in_group("grass"):
 			surface = 0
-		if other.is_in_group("stone"):
+		if groundtype.is_in_group("stone"):
 			surface = 1
-		if other.is_in_group("floor"):
+		if groundtype.is_in_group("floor"):
 			surface = 2
-
+		 
 func _process(delta):
 	#Step Sound Timer
 	if iswalking:

@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/snd_material.gd" type="Script" id=1]
 [ext_resource path="res://Models/UVcube.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Scenes/environment.tres" type="Environment" id=3]
 [ext_resource path="res://Materials/triplaner/newmaker/grass.tres" type="Material" id=4]
 [ext_resource path="res://Materials/triplaner/newmaker/stonebrick.tres" type="Material" id=5]
+[ext_resource path="res://Scripts/camera.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/target.gd" type="Script" id=7]
 [ext_resource path="res://Scenes/Prefabs/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Materials/Even_care/even_tile.tres" type="Material" id=11]
 
@@ -42,14 +44,16 @@ material/0 = ExtResource( 4 )
 [node name="stone" type="StaticBody" parent="." groups=[
 "stone",
 ]]
-transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, 20, 0, 0 )
+transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 3, 20, 0, -4 )
 script = ExtResource( 1 )
 mat_id = 1
 
 [node name="CollisionShape" type="CollisionShape" parent="stone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0 )
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="stone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 3, 0, 0, 0 )
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 5 )
 
@@ -80,24 +84,11 @@ shape = SubResource( 1 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 1, 0, 0, 0, -0.0016406, 0.999999, 0, -0.999999, -0.0016406, 0, 8.70024, 0 )
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 3 )
-
-[node name="wall" type="StaticBody" parent="." groups=[
-"floor",
-]]
-transform = Transform( -0.101135, 0.999795, 0, -4.99898, -0.0202271, 0, 0, 0, 5, -5.93659, 4, 0 )
-script = ExtResource( 1 )
-mat_id = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="wall"]
-shape = SubResource( 1 )
-
-[node name="MeshInstance" type="MeshInstance" parent="wall"]
-mesh = ExtResource( 2 )
-material/0 = ExtResource( 11 )
 
 [node name="floor2" type="StaticBody" parent="." groups=[
 "floor",
@@ -114,3 +105,21 @@ shape = SubResource( 1 )
 transform = Transform( 4, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 mesh = ExtResource( 2 )
 material/0 = ExtResource( 11 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.920505, 0.390731, 0, -0.390731, 0.920505, 0, 4.5, 7.3 )
+environment = ExtResource( 3 )
+current = true
+fov = 60.0
+script = ExtResource( 6 )
+offset = Vector3( 0, 2, 8 )
+xclamped = false
+zrange = Vector2( 3, 15 )
+targetPath = NodePath("../CameraTarget")
+
+[node name="CameraTarget" type="KinematicBody" parent="."]
+transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0.657, 2.96389, -1.31508 )
+visible = false
+script = ExtResource( 7 )
+followDistance = 2
+targetPath = NodePath("../Player")
